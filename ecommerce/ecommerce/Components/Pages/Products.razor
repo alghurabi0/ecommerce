@@ -1,0 +1,24 @@
+﻿@page "/products"
+@using MongoDB.Bson
+@using ecommerce.Models
+@using ecommerce.Controllers
+@inject ProductController productController
+
+<h3>Products...</h3>
+
+@foreach (var product in this.Items)
+{
+    <h1>@product.Title</h1>
+}
+
+@code {
+	private List<Product>? Items;
+
+	// Use OnInitializedAsync method to set initial value of the To Do List
+    protected override async Task OnInitializedAsync()
+    {
+        // Use the controller to set the value for List Items
+        this.Items = await productController.GetAllProducts();
+    }
+
+}
