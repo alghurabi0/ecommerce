@@ -1,0 +1,18 @@
+﻿@using ecommerce.Models
+
+@if (Product != null)
+{
+    <div class="card" style="width: 18rem;">
+        <img src="@Product.Img" alt="Product Image" class="card-img-top" />
+        <div class="card-body">
+            <h4 class="card-title">@Product.Title</h4>
+            <h5 class="card-text">Price: @Product.Price</h5>
+            <NavLink href="@($"/product/{Product.Id}")" class="btn btn-primary">View Details</NavLink>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public Product Product { get; set; }
+}

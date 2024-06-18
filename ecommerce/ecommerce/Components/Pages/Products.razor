@@ -6,9 +6,12 @@
 
 <h3>Products...</h3>
 
-@foreach (var product in this.Items)
+@if (Items != null)
 {
-    <h1>@product.Title</h1>
+    @foreach (var product in this.Items)
+    {
+        <ProductDisplay Product="product" />
+    }
 }
 
 @code {

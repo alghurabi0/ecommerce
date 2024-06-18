@@ -1,0 +1,40 @@
+﻿@page "/product/{ProductId}"
+@using MongoDB.Bson
+@using ecommerce.Models
+@using ecommerce.Controllers
+@inject ProductController productController
+@inject NavigationManager navigationManager
+
+<h3>Product Details</h3>
+
+@if (product == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <div class="product-details">
+        <h2>@product.Title</h2>
+        <img src="@product.Img" alt="Product Image" />
+        <p>@product.Description</p>
+        <p>Price: @product.Price</p>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public string ProductId { get; set; }
+
+    private Product product;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!ObjectId.TryParse(ProductId, out var objectId))
+        {
+            navigationManager.NavigateTo("/products");
+            return;
+        }
+
+        product = await productController.GetProduct(objectId);
+    }
+}
